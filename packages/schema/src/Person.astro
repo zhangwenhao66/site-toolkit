@@ -1,0 +1,25 @@
+---
+import { jsonLdStringify } from './jsonLdStringify';
+
+interface Props {
+	name: string;
+	url?: string;
+	jobTitle?: string;
+	image?: string;
+	sameAs?: string[];
+}
+
+const { name, url, jobTitle, image, sameAs } = Astro.props;
+
+const data = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name,
+	...(url ? { url } : {}),
+	...(jobTitle ? { jobTitle } : {}),
+	...(image ? { image } : {}),
+	...(sameAs?.length ? { sameAs } : {}),
+};
+---
+
+<script type="application/ld+json" set:html={jsonLdStringify(data)} />

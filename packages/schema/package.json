@@ -1,0 +1,10 @@
+{
+	"name": "@site-toolkit/schema",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"description": "Shared schema.org JSON-LD Astro components (Article, Review, FAQPage, BreadcrumbList, HowTo, Product, Dataset, Organization, Person, WebSite). Extracted from seo-geo-trinity's packages/ui/src/schema on 2026-07-23.",
+	"peerDependencies": {
+		"astro": "^6.0.0"
+	}
+}

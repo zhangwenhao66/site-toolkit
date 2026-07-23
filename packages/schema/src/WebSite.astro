@@ -1,0 +1,21 @@
+---
+import { jsonLdStringify } from './jsonLdStringify';
+
+interface Props {
+	name: string;
+	url: string;
+	description?: string;
+}
+
+const { name, url, description } = Astro.props;
+
+const data = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	name,
+	url,
+	...(description ? { description } : {}),
+};
+---
+
+<script type="application/ld+json" set:html={jsonLdStringify(data)} />

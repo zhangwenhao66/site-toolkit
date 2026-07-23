@@ -1,0 +1,27 @@
+---
+import { jsonLdStringify } from './jsonLdStringify';
+
+interface Item {
+	name: string;
+	item: string;
+}
+
+interface Props {
+	items: Item[];
+}
+
+const { items } = Astro.props;
+
+const data = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: items.map((it, i) => ({
+		'@type': 'ListItem',
+		position: i + 1,
+		name: it.name,
+		item: it.item,
+	})),
+};
+---
+
+<script type="application/ld+json" set:html={jsonLdStringify(data)} />

@@ -1,0 +1,37 @@
+---
+import { jsonLdStringify } from './jsonLdStringify';
+
+interface Step {
+	name: string;
+	text: string;
+	url?: string;
+	image?: string;
+}
+
+interface Props {
+	name: string;
+	description?: string;
+	steps: Step[];
+	totalTime?: string;
+}
+
+const { name, description, steps, totalTime } = Astro.props;
+
+const data = {
+	'@context': 'https://schema.org',
+	'@type': 'HowTo',
+	name,
+	...(description ? { description } : {}),
+	...(totalTime ? { totalTime } : {}),
+	step: steps.map((s, i) => ({
+		'@type': 'HowToStep',
+		position: i + 1,
+		name: s.name,
+		text: s.text,
+		...(s.url ? { url: s.url } : {}),
+		...(s.image ? { image: s.image } : {}),
+	})),
+};
+---
+
+<script type="application/ld+json" set:html={jsonLdStringify(data)} />

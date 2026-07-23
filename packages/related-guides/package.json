@@ -1,0 +1,8 @@
+{
+	"name": "@site-toolkit/related-guides",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"description": "Rotating-window related-guides selection algorithm + coverage verification helper. Extracted from seo-geo-trinity on 2026-07-23 (was duplicated identically across apps/alpha, apps/beta, apps/gamma, apps/delta).",
+	"main": "src/index.ts"
+}

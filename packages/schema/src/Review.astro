@@ -1,0 +1,43 @@
+---
+import { jsonLdStringify } from './jsonLdStringify';
+
+interface Props {
+	itemReviewed: string;
+	itemReviewedType?: string;
+	reviewBody?: string;
+	authorName: string;
+	ratingValue?: number;
+	bestRating?: number;
+	datePublished?: string;
+}
+
+const {
+	itemReviewed,
+	itemReviewedType = 'SoftwareApplication',
+	reviewBody,
+	authorName,
+	ratingValue,
+	bestRating = 5,
+	datePublished,
+} = Astro.props;
+
+const data = {
+	'@context': 'https://schema.org',
+	'@type': 'Review',
+	itemReviewed: { '@type': itemReviewedType, name: itemReviewed },
+	...(reviewBody ? { reviewBody } : {}),
+	author: { '@type': 'Person', name: authorName },
+	...(datePublished ? { datePublished } : {}),
+	...(ratingValue != null
+		? {
+				reviewRating: {
+					'@type': 'Rating',
+					ratingValue,
+					bestRating,
+				},
+			}
+		: {}),
+};
+---
+
+<script type="application/ld+json" set:html={jsonLdStringify(data)} />

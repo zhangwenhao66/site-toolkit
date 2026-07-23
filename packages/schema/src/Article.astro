@@ -1,0 +1,35 @@
+---
+import { jsonLdStringify } from './jsonLdStringify';
+
+interface Props {
+	headline: string;
+	description?: string;
+	datePublished: string;
+	dateModified?: string;
+	authorName: string;
+	authorUrl?: string;
+	image?: string;
+	url: string;
+}
+
+const { headline, description, datePublished, dateModified, authorName, authorUrl, image, url } =
+	Astro.props;
+
+const data = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline,
+	...(description ? { description } : {}),
+	datePublished,
+	...(dateModified ? { dateModified } : {}),
+	mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+	author: {
+		'@type': 'Person',
+		name: authorName,
+		...(authorUrl ? { url: authorUrl } : {}),
+	},
+	...(image ? { image: [image] } : {}),
+};
+---
+
+<script type="application/ld+json" set:html={jsonLdStringify(data)} />

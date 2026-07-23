@@ -1,0 +1,27 @@
+---
+import { jsonLdStringify } from './jsonLdStringify';
+
+interface Props {
+	name: string;
+	description?: string;
+	url?: string;
+	license?: string;
+	temporalCoverage?: string;
+	spatialCoverage?: string;
+}
+
+const { name, description, url, license, temporalCoverage, spatialCoverage } = Astro.props;
+
+const data = {
+	'@context': 'https://schema.org',
+	'@type': 'Dataset',
+	name,
+	...(description ? { description } : {}),
+	...(url ? { url } : {}),
+	...(license ? { license } : {}),
+	...(temporalCoverage ? { temporalCoverage } : {}),
+	...(spatialCoverage ? { spatialCoverage } : {}),
+};
+---
+
+<script type="application/ld+json" set:html={jsonLdStringify(data)} />
