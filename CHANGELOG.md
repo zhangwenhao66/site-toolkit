@@ -14,6 +14,8 @@ Repo created fresh (no prior `独立站/site-toolkit` existed — checked before
 
 **Explicitly out of scope for this pass** (flagged to Owen before starting, confirmed to defer): `seo-geo-trinity/agents/schema` (a structured-data *validator* Astro integration — distinct from `packages/ui/src/schema`'s components, easy to confuse), `agents/redirects` (301 redirect generation), `agents/indexnow` (index-ping integration). All three are already shared across the 4 sites via relative imports (`../../agents/...`), not npm workspace packages. Candidates for a follow-up migration once this first pass is proven out — not migrating them now to keep this pass's blast radius smaller.
 
+**Same-day reorg**: `sitemapConfig.ts` moved from `templates/` to `packages/sitemap-config/` (with its own `package.json`, matching `packages/schema` and `packages/related-guides`). Owen pointed out the `templates/` vs `packages/` split should track "is this a stable, parameterized function you import unchanged" vs "is this a copy-and-hand-edit starting point" — `sitemapConfig()` already took an `excludePaths` option specifically to cover per-site customization without forking, so it belongs with the other importable packages. `robots.txt.template` stays in `templates/` since robots rules (bot allow/deny lists, extra site-specific Disallow paths) are more likely to genuinely diverge per site than sitemap exclusions are.
+
 **Site migration status** (updated as each seo-geo-trinity site switches over to consuming this via submodule):
 
 | Site | Status |

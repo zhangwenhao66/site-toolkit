@@ -1,0 +1,8 @@
+{
+	"name": "@site-toolkit/sitemap-config",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"description": "Shared @astrojs/sitemap filter/serialize config factory. Extracted from seo-geo-trinity on 2026-07-23 (was duplicated identically across all 4 sites' astro.config.mjs).",
+	"main": "src/index.ts"
+}

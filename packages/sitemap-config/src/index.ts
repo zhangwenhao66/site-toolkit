@@ -7,7 +7,7 @@
  * Usage in astro.config.mjs:
  *
  *   import sitemap from '@astrojs/sitemap';
- *   import { sitemapConfig } from '../../../site-toolkit/templates/sitemapConfig';
+ *   import { sitemapConfig } from '../../../vendor/site-toolkit/packages/sitemap-config/src/index.ts';
  *
  *   integrations: [
  *     sitemap(sitemapConfig()),
