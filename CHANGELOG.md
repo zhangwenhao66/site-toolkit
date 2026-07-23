@@ -20,8 +20,10 @@ Repo created fresh (no prior `独立站/site-toolkit` existed — checked before
 
 | Site | Status |
 |---|---|
-| beta (commsadvisor.com) | not started |
-| gamma (hrpaypick.com) | not started |
-| delta (cashflowpick.com) | not started |
-| alpha (chinaabroadguide.com) | not started — deliberately last; only English/zh-CN site with a real, currently-recovering organic traffic trend (verified via GSC on 2026-07-23: 0 clicks in early June → 69-72 clicks/week and position ~13-14 by mid-July), migrate last and verify extra carefully |
+| beta (commsadvisor.com) | ✅ migrated 2026-07-23 — schema, related-guides, sitemap-config all switched over. Verified 0/132 mismatches vs old related-guides algorithm, sitemap identical, build clean, live production 0 console errors. |
+| gamma (hrpaypick.com) | ✅ migrated 2026-07-23 — schema, related-guides, sitemap-config all switched over. Verified 0/117 mismatches (98.3% coverage unchanged), sitemap identical (130 URLs), build clean (135 pages, 793 json-ld blocks), live production 0 console errors. |
+| delta (cashflowpick.com) | ✅ migrated 2026-07-23 — schema + related-guides switched over. sitemap-config intentionally **not** migrated: delta's `serialize` derives per-guide `lastmod` from `guide.updated`, unlike beta/gamma/alpha's identical "always build-time" boilerplate — a genuine site-specific customization, kept inline in delta's `astro.config.mjs` to avoid silently changing sitemap output. Verified 0/100 mismatches (100% coverage unchanged), sitemap identical (119 URLs, only non-guide utility pages' lastmod differs, expected across separate build runs), build clean (123 pages, 713 json-ld blocks), live production 0 console errors. |
+| alpha (chinaabroadguide.com) | ✅ migrated 2026-07-23 — migrated last, as planned, with extra-careful verification given its real, currently-recovering organic traffic trend. Schema, related-guides, sitemap-config all switched over (alpha's config matched the shared boilerplate exactly, same as beta/gamma). Verified 0/206 mismatches (100% coverage unchanged), sitemap identical (227 URLs), build clean (234 html files, 1354 json-ld blocks), live production 0 console errors, all 7 schema blocks present, CJK layout confirmed intact via screenshot on a live review page. |
 | hollowvane | separate project/session, not tracked here yet |
+
+All 4 seo-geo-trinity sites are now on `site-toolkit` for schema, related-guides, and (except delta's sitemap serialize) sitemap config. The old `@trinity/ui/schema/*` package in seo-geo-trinity is no longer referenced by any site but has not been deleted yet — pending confirmation nothing else in the monorepo depends on it.
