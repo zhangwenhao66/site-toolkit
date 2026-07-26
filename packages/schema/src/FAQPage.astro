@@ -12,15 +12,25 @@ interface Props {
 
 const { items } = Astro.props;
 
+// schema.org Answer.text is plain text -- strip markdown syntax rather than
+// leaking raw "[label](url)" / "**bold**" into JSON-LD if a caller's FAQ
+// source data contains markdown-formatted answers (as this site's own
+// FAQ answers sometimes do, for in-page links). See CHANGELOG.md.
+function stripMarkdown(text: string): string {
+	return text
+		.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+		.replace(/\*\*(.*?)\*\*/g, '$1');
+}
+
 const data = {
 	'@context': 'https://schema.org',
 	'@type': 'FAQPage',
 	mainEntity: items.map((q) => ({
 		'@type': 'Question',
-		name: q.question,
+		name: stripMarkdown(q.question),
 		acceptedAnswer: {
 			'@type': 'Answer',
-			text: q.answer,
+			text: stripMarkdown(q.answer),
 		},
 	})),
 };
