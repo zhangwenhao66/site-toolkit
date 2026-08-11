@@ -1,6 +1,12 @@
 ---
 import { jsonLdStringify } from './jsonLdStringify';
 
+interface Creator {
+	'@type': 'Organization' | 'Person';
+	name: string;
+	url?: string;
+}
+
 interface Props {
 	name: string;
 	description?: string;
@@ -8,9 +14,10 @@ interface Props {
 	license?: string;
 	temporalCoverage?: string;
 	spatialCoverage?: string;
+	creator?: Creator;
 }
 
-const { name, description, url, license, temporalCoverage, spatialCoverage } = Astro.props;
+const { name, description, url, license, temporalCoverage, spatialCoverage, creator } = Astro.props;
 
 const data = {
 	'@context': 'https://schema.org',
@@ -21,6 +28,7 @@ const data = {
 	...(license ? { license } : {}),
 	...(temporalCoverage ? { temporalCoverage } : {}),
 	...(spatialCoverage ? { spatialCoverage } : {}),
+	...(creator ? { creator } : {}),
 };
 ---
 
