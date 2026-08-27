@@ -9,10 +9,15 @@ interface Props {
 	authorName: string;
 	authorUrl?: string;
 	image?: string;
+	/** 2026-08-27：图片搜索占矩阵总曝光 24.6%（UmberLore 达 60%），但此前 schema 只给裸 URL。
+	 *  补 ImageObject 的宽高与说明，是图片搜索最直接的结构化信号。三者可选，缺了就退回裸 URL。 */
+	imageWidth?: number;
+	imageHeight?: number;
+	imageCaption?: string;
 	url: string;
 }
 
-const { headline, description, datePublished, dateModified, authorName, authorUrl, image, url } =
+const { headline, description, datePublished, dateModified, authorName, authorUrl, image, imageWidth, imageHeight, imageCaption, url } =
 	Astro.props;
 
 const data = {
@@ -24,11 +29,25 @@ const data = {
 	...(dateModified ? { dateModified } : {}),
 	mainEntityOfPage: { '@type': 'WebPage', '@id': url },
 	author: {
-		'@type': 'Person',
+		'@type': 'Organization',
 		name: authorName,
 		...(authorUrl ? { url: authorUrl } : {}),
 	},
-	...(image ? { image: [image] } : {}),
+	...(image
+		? {
+				image: [
+					imageWidth && imageHeight
+						? {
+								'@type': 'ImageObject',
+								url: image,
+								width: imageWidth,
+								height: imageHeight,
+								...(imageCaption ? { caption: imageCaption } : {}),
+							}
+						: image,
+				],
+			}
+		: {}),
 };
 ---
 
