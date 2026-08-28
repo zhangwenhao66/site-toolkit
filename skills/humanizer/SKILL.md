@@ -619,3 +619,20 @@ Deliver the draft, the brief "still-AI" bullets, the final rewrite, and (optiona
 This skill is based on [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. The patterns documented there come from observations of thousands of instances of AI-generated text on Wikipedia.
 
 Key insight from Wikipedia: "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
+
+
+## Structure-level tells (added 2026-08-28, from real-reader feedback)
+
+Background: a Reddit thread identified one of our pages as AI-written within seconds, and a reader named the fingerprint directly: "claudespeak and the same derivative design / layout" — this happened AFTER every word-level pattern in this skill had been cleaned. Word-level cleanup does not remove the structural voice. (Full record: 独立站/reddit-投放日志.md, 2026-08-28 entry.)
+
+Audit the page's SHAPE before its prose: scan the heading tree and section lengths first. If the shape is machine-tidy, word fixes will not save it.
+
+Patterns to detect and break at the page/document level:
+
+1. **Over-tidiness**: every section similar length, every heading parallel, nothing digresses, nothing is skipped. Human pages are lopsided — one section runs long because the author cares about it, another is two sentences. Fix: make section depth deliberately uneven; cut at least one "expected" section; let one genuine tangent survive.
+2. **Standard furniture on every page**: summary box up top + symmetric section headers + tidy "Sources/Cite this" block is generated scaffolding when it appears everywhere. Keep such furniture only where the page genuinely earns it (original data research); drop or vary it elsewhere.
+3. **No authorial presence**: zero first person, zero opinion, zero visible judgment. Give each long page at least one moment where a person is choosing: "the sources disagree here; X is more convincing because..." — only where a real judgment call actually exists.
+4. **Heading-set symmetry**: rewrite heading sets so they do not all share one grammatical template.
+5. **Nothing unfinished**: real reference pages admit gaps ("haven't tracked down the primary source for this claim"). One honestly-admitted limitation per long page is a strong human tell — never fabricate one.
+
+These checks apply to page structure and information architecture, and to titles: a triplet title ("do X, see Y, watch Z") is the rule-of-three tell wearing a different coat.
