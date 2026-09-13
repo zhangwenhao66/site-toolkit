@@ -6,9 +6,12 @@ interface Props {
 	url: string;
 	logo?: string;
 	sameAs?: string[];
+	description?: string;
+	email?: string;
+	knowsAbout?: string[];
 }
 
-const { name, url, logo, sameAs } = Astro.props;
+const { name, url, logo, sameAs, description, email, knowsAbout } = Astro.props;
 
 const data = {
 	'@context': 'https://schema.org',
@@ -24,6 +27,19 @@ const data = {
 			}
 		: {}),
 	...(sameAs && sameAs.length > 0 ? { sameAs } : {}),
+	...(description ? { description } : {}),
+	...(email
+		? {
+				contactPoint: [
+					{
+						'@type': 'ContactPoint',
+						contactType: 'customer support',
+						email,
+					},
+				],
+			}
+		: {}),
+	...(knowsAbout && knowsAbout.length > 0 ? { knowsAbout } : {}),
 };
 ---
 
