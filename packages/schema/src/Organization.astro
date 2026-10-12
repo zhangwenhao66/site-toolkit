@@ -2,6 +2,8 @@
 import { jsonLdStringify } from './jsonLdStringify';
 
 interface Props {
+	/** 2026-10-12：可选 @id，供 Article.publisher 以 @id 引用同一品牌实体，避免重复定义 Organization。 */
+	id?: string;
 	name: string;
 	url: string;
 	logo?: string;
@@ -11,11 +13,12 @@ interface Props {
 	knowsAbout?: string[];
 }
 
-const { name, url, logo, sameAs, description, email, knowsAbout } = Astro.props;
+const { id, name, url, logo, sameAs, description, email, knowsAbout } = Astro.props;
 
 const data = {
 	'@context': 'https://schema.org',
 	'@type': 'Organization',
+	...(id ? { '@id': id } : {}),
 	name,
 	url,
 	...(logo

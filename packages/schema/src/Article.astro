@@ -15,9 +15,16 @@ interface Props {
 	imageHeight?: number;
 	imageCaption?: string;
 	url: string;
+	/** 2026-10-12：Google 建议 Article 标注 publisher（全站 check-schema 报 "missing recommended: publisher"）。
+	 *  publisher 与页面上的品牌 Organization 节点指同一实体，用 publisherId 以 @id 引用，避免重复定义。 */
+	publisherName?: string;
+	publisherUrl?: string;
+	publisherLogo?: string;
+	publisherId?: string;
 }
 
-const { headline, description, datePublished, dateModified, authorName, authorUrl, image, imageWidth, imageHeight, imageCaption, url } =
+const { headline, description, datePublished, dateModified, authorName, authorUrl, image, imageWidth, imageHeight, imageCaption, url,
+	publisherName, publisherUrl, publisherLogo, publisherId } =
 	Astro.props;
 
 const data = {
@@ -33,6 +40,19 @@ const data = {
 		name: authorName,
 		...(authorUrl ? { url: authorUrl } : {}),
 	},
+	...(publisherName
+		? {
+				publisher: {
+					'@type': 'Organization',
+					...(publisherId ? { '@id': publisherId } : {}),
+					name: publisherName,
+					...(publisherUrl ? { url: publisherUrl } : {}),
+					...(publisherLogo
+						? { logo: { '@type': 'ImageObject', url: publisherLogo } }
+						: {}),
+				},
+			}
+		: {}),
 	...(image
 		? {
 				image: [
